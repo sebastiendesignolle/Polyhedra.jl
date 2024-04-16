@@ -39,7 +39,7 @@ function MixedMatHRep(A::AbstractMatrix{S}, b::AbstractVector{T}, linset::BitSet
     U = promote_type(S, T)
     MixedMatHRep(AbstractMatrix{U}(A), AbstractVector{U}(b), linset)
 end
-MixedMatHRep(A::AbstractMatrix{T}, b::AbstractVector{T}, linset::BitSet) where T <: Real = MixedMatHRep{T}(A, b, linset)
+MixedMatHRep(A::AbstractMatrix{T}, b::AbstractVector{T}, linset::BitSet) where T <: Number = MixedMatHRep{T}(A, b, linset)
 
 MixedMatHRep(h::HRep{T}) where {T} = MixedMatHRep{T}(h)
 MixedMatHRep{T}(h::HRep) where {T} = convert(MixedMatHRep{T, hmatrixtype(typeof(h), T)}, h)

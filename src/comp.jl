@@ -1,6 +1,6 @@
-isapproxzero(x::T; kws...) where {T<:Real} = x == zero(T)
+isapproxzero(x::T; kws...) where {T<:Number} = x == zero(T)
 isapproxzero(x::T; ztol=Base.rtoldefault(T)) where {T<:AbstractFloat} = abs(x) < ztol
-isapproxzero(x::AbstractVector{T}; kws...) where {T<:Real} = isapproxzero(maximum(abs.(x)); kws...)
+isapproxzero(x::AbstractVector{T}; kws...) where {T<:Number} = isapproxzero(maximum(abs.(x)); kws...)
 #isapproxzero(x::Union{SymPoint, Ray, Line}; kws...) = isapproxzero(coord(x); kws...)
 isapproxzero(x::Union{Ray, Line}; kws...) = isapproxzero(coord(x); kws...)
 isapproxzero(h::HRepElement; kws...) = isapproxzero(h.a; kws...) && isapproxzero(h.β; kws...)
@@ -46,15 +46,15 @@ function Base.isapprox(h1::HalfSpace, h2::HalfSpace)
     _isapprox(a1, a2) && _isapprox(β1, β2)
 end
 
-_lt(x::T, y::T) where {T<:Real} = x < y
+_lt(x::T, y::T) where {T<:Number} = x < y
 _lt(x::T, y::T) where {T<:AbstractFloat} = x < y && !_isapprox(x, y)
-_lt(x::S, y::T) where {S<:Real,T<:Real} = _lt(promote(x, y)...)
-_gt(x::S, y::T) where {S<:Real, T<:Real} = _lt(y, x)
-_leq(x::T, y::T) where {T<:Real} = x <= y
+_lt(x::S, y::T) where {S<:Number,T<:Number} = _lt(promote(x, y)...)
+_gt(x::S, y::T) where {S<:Number, T<:Number} = _lt(y, x)
+_leq(x::T, y::T) where {T<:Number} = x <= y
 _leq(x::T, y::T) where {T<:AbstractFloat} = x <= y || _isapprox(x, y)
-_leq(x::S, y::T) where {S<:Real,T<:Real} = _leq(promote(x, y)...)
-_geq(x::T, y::T) where {T<:Real} = _leq(y, x)
-_pos(x::T) where {T<:Real} = _gt(x, zero(T))
-_neg(x::T) where {T<:Real} = _lt(x, zero(T))
-_nonneg(x::T) where {T<:Real} = _geq(x, zero(T))
-_nonpos(x::T) where {T<:Real} = _leq(x, zero(T))
+_leq(x::S, y::T) where {S<:Number,T<:Number} = _leq(promote(x, y)...)
+_geq(x::T, y::T) where {T<:Number} = _leq(y, x)
+_pos(x::T) where {T<:Number} = _gt(x, zero(T))
+_neg(x::T) where {T<:Number} = _lt(x, zero(T))
+_nonneg(x::T) where {T<:Number} = _geq(x, zero(T))
+_nonpos(x::T) where {T<:Number} = _leq(x, zero(T))

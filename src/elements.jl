@@ -69,10 +69,10 @@ islin(::Union{HyperPlane, Type{<:HyperPlane}}) = true
 Base.:-(h1::HRepElement, h2::HRepElement) = HalfSpace(h1.a - h2.a, h1.β - h2.β)
 Base.:-(h1::HyperPlane, h2::HyperPlane) = HyperPlane(h1.a - h2.a, h1.β - h2.β)
 
-Base.:(*)(h::HyperPlane, α::Real) = HyperPlane(h.a * α, h.β * α)
-Base.:(*)(α::Real, h::HyperPlane) = HyperPlane(α * h.a, α * h.β)
-Base.:(*)(h::HalfSpace, α::Real) = HalfSpace(h.a * α, h.β * α)
-Base.:(*)(α::Real, h::HalfSpace) = HalfSpace(α * h.a, α * h.β)
+Base.:(*)(h::HyperPlane, α::Number) = HyperPlane(h.a * α, h.β * α)
+Base.:(*)(α::Number, h::HyperPlane) = HyperPlane(α * h.a, α * h.β)
+Base.:(*)(h::HalfSpace, α::Number) = HalfSpace(h.a * α, h.β * α)
+Base.:(*)(α::Number, h::HalfSpace) = HalfSpace(α * h.a, α * h.β)
 
 function Base.:(/)(h::ElemT, P::UniformScaling) where {T, ElemT<:HRepElement{T}}
     Tout = MA.promote_operation(*, eltype(P), T)

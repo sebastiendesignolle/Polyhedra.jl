@@ -3,19 +3,19 @@ export RepIterator
 export Rep
 
 """
-    Representation{T<:Real}
+    Representation{T<:Number}
 
 Supertype for H-(or V-)representations with coefficient type `T`.
 """
-abstract type Representation{T <: Real} end
+abstract type Representation{T <: Number} end
 """
-    HRepresentation{T<:Real}
+    HRepresentation{T<:Number}
 
 Supertype for H-representations with coefficient type `T`.
 """
 abstract type HRepresentation{T} <: Representation{T} end
 """
-    VRepresentation{T<:Real}
+    VRepresentation{T<:Number}
 
 Supertype for V-representations coefficient type `T`.
 """
